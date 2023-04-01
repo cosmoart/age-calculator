@@ -6,7 +6,6 @@ body {
 	font-family: 'Poppins', sans-serif;
 }
 
-/* 400i, 700, 800i */
 @font-face {
 	font-family: 'Poppins';
 	src: url('./assets/fonts/Poppins-Italic.ttf');
@@ -26,7 +25,7 @@ body {
 }
 
 main {
-	width: 100vw;
+	width: 90vw;
 	max-width: 45rem;
 	background: white;
 	padding: 3rem;
@@ -49,19 +48,17 @@ main {
 	font-weight: 700;
 }
 .age-form-input input {
-	size: 1;
 	display: block;
-	padding: 6px 10px;
+	padding: 10px 14px;
 	border-radius: 5px;
-	border: 1px solid rgba(0, 0, 0, 0.616);
+	border: 1px solid hsl(0, 0%, 86%);
 	font-weight: 700;
-	font-size: 2rem;
+	font-size: clamp(1.3rem, 5vw, 1.6rem);
 	width: 100%;
 }
 
 /* SUBMIT ============= */
 .age-submit {
-	align-self: flex-end;
 	position: relative;
 	background: transparent;
 	border: none;
@@ -78,16 +75,17 @@ main {
 	outline: 2px solid hsl(259, 100%, 65%);
 	outline-offset: -2px;
 }
-.padre {
+.submit {
+	margin-top: 1rem;
 	width: 100%;
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
 }
-.padre::after {
+.submit::after {
 	content: '';
 	width: 100%;
-	background: black;
+	background: hsl(0, 0%, 86%);
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -108,14 +106,42 @@ main {
 	scale: 0.95;
 }
 
-/* RESULT ========== */
-.age-result {
-	font-size: 4rem;
-	font-weight: 800;
+/* ERROR ========== */
+.input--error {
+	color: hsl(0, 100%, 67%);
+}
+.input--error input {
+	border: 1px solid hsl(0, 100%, 67%);
+	position: relative;
+	z-index: 10;
+}
+.age-form-input label {
+	position: relative;
+}
+.error-info {
+	margin: 10px 0 0 0;
+	font-size: 11px;
+	font-weight: 400;
+	transition: 0.3s ease-in-out;
+	opacity: 1;
+	bottom: -1.3rem;
+	z-index: 5;
+	position: absolute;
 }
 
-/* === */
+/* RESULT ========== */
+.age-result {
+	font-size: clamp(2.7rem, 7vw, 4rem);
+	font-weight: 800;
+	letter-spacing: 6px;
+}
+.age-form-input span {
+	font-size: 13px;
+	margin-bottom: 6px;
+	display: block;
+}
 
+/* UTILS ========= */
 .purple_text {
 	color: hsl(259, 100%, 65%);
 }
@@ -123,10 +149,8 @@ main {
 	display: none;
 }
 .info--hidden {
-	height: 0 !important;
-}
-.input--error {
-	border: 1px solid red !important;
+	bottom: 0;
+	opacity: 0;
 }
 
 .shake {
@@ -154,5 +178,49 @@ main {
 	40%,
 	60% {
 		transform: translate3d(4px, 0, 0);
+	}
+}
+
+/* RESPONSIVE ======= */
+@media screen and (max-width: 755px) {
+	.submit {
+		justify-content: center;
+		margin-top: 3.5rem;
+	}
+	.age-result {
+		margin-top: 2rem;
+	}
+	.age-form-input {
+		gap: 14px;
+	}
+	.error-info {
+		bottom: -2rem;
+	}
+	main {
+		padding: 3rem 2rem;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.age-result {
+		font-size: 6rem;
+	}
+	.age-submit img {
+		padding: 1.6rem;
+	}
+	main {
+		max-width: 52rem;
+	}
+	.age-form-input {
+		max-width: 34rem;
+		gap: 2rem;
+	}
+	.age-form-input input {
+		font-size: 2rem;
+		padding: 16px 20px;
+	}
+	.age-form-input span {
+		margin-bottom: 10px;
+		font-size: 14px;
 	}
 }

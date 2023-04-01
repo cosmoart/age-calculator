@@ -1,74 +1,50 @@
 import { useState } from 'react'
+import calculateAge from './calculateAge'
 import iconArrow from './assets/images/icon-arrow.svg'
 import './App.css'
 
 export default function App () {
-	const [age, setAge] = useState({
-		days: null,
-		months: null,
-		years: null
-	})
-
-	const [dateOfBirth, setDateOfBirth] = useState({
-		day: null,
-		month: null,
-		year: null
-	})
-
-	function calculateAge (day, month, year) {
-		const today = new Date()
-		const birthDate = new Date(year, month, day)
-		let years = today.getFullYear() - birthDate.getFullYear()
-		const months = today.getMonth() - birthDate.getMonth()
-		const days = today.getDate() - birthDate.getDate()
-
-		if (months < 0 || (months === 0 && today.getDate() < birthDate.getDate())) {
-			years--
-		}
-
-		return {
-			days,
-			months,
-			years
-		}
-	}
-
-	function handleInput (e) {
-		const { name, value } = e.target
-
-		if (name === 'day') {
-			if (value > 31) e.target.value = 31
-			if (value < 1) e.target.value = 1
-		}
-
-		if (name === 'month') {
-			if (value > 12) e.target.value = 12
-			if (value < 1) e.target.value = 1
-		}
-
-		if (name === 'year') {
-			if (value > new Date().getFullYear()) e.target.value = new Date().getFullYear()
-			if (value < 100) e.target.value = 100
-		}
-	}
+	const [age, setAge] = useState({ days: null, months: null, years: null })
 
 	const handleError = (t, message = 'Error', type = 'add') => {
 		const target = document.querySelector(`[name="${t}"]`)
 		target.nextElementSibling.innerHTML = message
 		target.nextElementSibling.classList[type === 'add' ? 'remove' : 'add']('info--hidden')
-		target.classList[type]('input--error')
+
+		target.parentElement.classList[type]('input--error')
+		target.parentElement.classList[type]('shake')
+		target.parentElement.addEventListener('animationend', () => target.parentElement.classList.remove('shake'))
+	}
+
+	function checkErrors ({ day, month, year }) {
+		if (day.value === '') handleError('day', 'Day is required')
+		else {
+			const daysInMonth = new Date(year.value, month.value, 0).getDate() || 31
+			if (day.value > daysInMonth) handleError('day', `There are only ${daysInMonth} days`)
+			else if (day.value < 1) handleError('day', 'Must be a valid day')
+			else handleError('day', '', 'remove')
+		}
+		if (month.value === '') handleError('month', 'Month is required')
+		else {
+			if (month.value > 12) handleError('month', 'There are only 12 months')
+			else if (month.value < 1) handleError('month', 'Must be a valid month')
+			else handleError('month', '', 'remove')
+		}
+		if (year.value === '') handleError('year', 'Year is required')
+		else {
+			if (year.value > new Date().getFullYear()) handleError('year', 'Must be in the past')
+			else if (year.value < 100) handleError('year', 'Must be more than 100')
+			else handleError('year', '', 'remove')
+		}
 	}
 
 	function handleSubmit (e) {
 		e.preventDefault()
-
-		if (e.target.elements.day.value === '') return handleError('day', 'Day is required')
-		if (e.target.elements.month.value === '') return handleError('month', 'Month is required')
-		if (e.target.elements.year.value === '') return handleError('year', 'Year is required')
 		const { day, month, year } = e.target.elements
-		const age = calculateAge(day.value, month.value, year.value)
-		console.log(age)
-		setAge(age)
+		checkErrors({ day, month, year })
+
+		if (document.querySelectorAll('.input--error').length > 0) return
+		setAge(calculateAge(new Date(`${year.value}-${month.value}-${day.value}`)))
 	}
 
 	return (
@@ -78,22 +54,22 @@ export default function App () {
 			<form onSubmit={handleSubmit} className='age-form'>
 				<div className='age-form-input'>
 					<label>
-						Day
-						<input type='number' name='day' id='day' placeholder='DD' onChange={handleInput} />
-						<p className='info info--hidden' aria-live='polite'></p>
+						<span>Day</span>
+						<input type='number' name='day' id='day' placeholder='DD' />
+						<p className='error-info info--hidden' aria-live='polite'></p>
 					</label>
 					<label>
-						Month
-						<input type='number' name='month' id='month' placeholder='MM' onChange={handleInput} />
-						<p className='info info--hidden' aria-live='polite'></p>
+						<span>Month</span>
+						<input type='number' name='month' id='month' placeholder='MM' />
+						<p className='error-info info--hidden' aria-live='polite'></p>
 					</label>
 					<label>
-						Year
-						<input type='number' name='year' id='year' placeholder='YYYY' onChange={handleInput} />
-						<p className='info info--hidden' aria-live='polite'></p>
+						<span>Year</span>
+						<input type='number' name='year' id='year' placeholder='YYYY' />
+						<p className='error-info info--hidden' aria-live='polite'></p>
 					</label>
 				</div>
-				<div className='padre'>
+				<div className='submit'>
 					<button type='submit' className='age-submit' title='Calculate age'>
 						<img src={iconArrow} alt='Calculate age' />
 					</button>
@@ -104,7 +80,6 @@ export default function App () {
 					<span className='purple_text'>{age.days === null ? '--' : age.days}</span> days
 				</output>
 			</form>
-
 		</main>
 	)
 }
