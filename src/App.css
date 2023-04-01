@@ -1,0 +1,158 @@
+body {
+	background: hsl(0, 0%, 94%);
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
+	font-family: 'Poppins', sans-serif;
+}
+
+/* 400i, 700, 800i */
+@font-face {
+	font-family: 'Poppins';
+	src: url('./assets/fonts/Poppins-Italic.ttf');
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('./assets/fonts/Poppins-Bold.ttf');
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('./assets/fonts/Poppins-ExtraBoldItalic.ttf');
+	font-weight: 800;
+}
+
+main {
+	width: 100vw;
+	max-width: 45rem;
+	background: white;
+	padding: 3rem;
+	border-radius: 2rem 2rem 10rem 2rem;
+}
+
+.age-form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+/* INPUTS ========= */
+.age-form-input {
+	max-width: 30rem;
+	color: hsl(0, 1%, 44%);
+	display: flex;
+	gap: 1rem;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+.age-form-input input {
+	size: 1;
+	display: block;
+	padding: 6px 10px;
+	border-radius: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.616);
+	font-weight: 700;
+	font-size: 2rem;
+	width: 100%;
+}
+
+/* SUBMIT ============= */
+.age-submit {
+	align-self: flex-end;
+	position: relative;
+	background: transparent;
+	border: none;
+	z-index: 10;
+	padding: 0;
+}
+.age-submit img {
+	padding: 1.2rem;
+	background: hsl(259, 100%, 65%);
+	border-radius: 100%;
+	cursor: pointer;
+	transition: 0.3s;
+	border: none;
+	outline: 2px solid hsl(259, 100%, 65%);
+	outline-offset: -2px;
+}
+.padre {
+	width: 100%;
+	position: relative;
+	display: flex;
+	justify-content: flex-end;
+}
+.padre::after {
+	content: '';
+	width: 100%;
+	background: black;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	height: 1px;
+	right: 0;
+}
+.age-submit img:hover::after {
+	scale: 0.95;
+}
+.age-submit img:hover {
+	background: hsl(259, 100%, 60%);
+	outline-offset: 3px;
+	scale: 1.05;
+}
+.age-submit img:active {
+	background: hsl(258, 100%, 60%);
+	scale: 0.95;
+}
+
+/* RESULT ========== */
+.age-result {
+	font-size: 4rem;
+	font-weight: 800;
+}
+
+/* === */
+
+.purple_text {
+	color: hsl(259, 100%, 65%);
+}
+.hidden {
+	display: none;
+}
+.info--hidden {
+	height: 0 !important;
+}
+.input--error {
+	border: 1px solid red !important;
+}
+
+.shake {
+	animation: shake 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+	10%,
+	90% {
+		transform: translate3d(-1px, 0, 0);
+		background: var(--Red);
+	}
+
+	20%,
+	80% {
+		transform: translate3d(2px, 0, 0);
+	}
+
+	30%,
+	50%,
+	70% {
+		transform: translate3d(-4px, 0, 0);
+	}
+
+	40%,
+	60% {
+		transform: translate3d(4px, 0, 0);
+	}
+}
