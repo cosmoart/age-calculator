@@ -1,0 +1,36 @@
+.footer {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	font-weight: 700;
+	font-size: 12px;
+}
+.footer button {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	transition: 0.3s;
+	opacity: 0.3;
+}
+.footer button:hover {
+	scale: 1.1;
+	opacity: 1;
+}
+.footer img {
+	vertical-align: middle;
+}
+.footer p {
+	margin: 0;
+	position: absolute;
+	bottom: 6px;
+	right: 2.5rem;
+	width: max-content;
+	transition: 0.3s;
+	opacity: 1;
+}
+
+.info-hidden {
+	opacity: 0 !important;
+	right: -1rem !important;
+	pointer-events: none;
+}

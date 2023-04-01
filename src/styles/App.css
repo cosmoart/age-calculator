@@ -4,23 +4,26 @@ body {
 	place-items: center;
 	min-height: 100vh;
 	font-family: 'Poppins', sans-serif;
+	--purple: hsl(259, 100%, 65%);
+	--red: hsl(0, 100%, 67%);
+	--gray: hsl(0, 0%, 86%);
 }
 
 @font-face {
 	font-family: 'Poppins';
-	src: url('./assets/fonts/Poppins-Italic.ttf');
+	src: url('../assets/fonts/Poppins-Italic.ttf');
 	font-weight: 400;
 }
 
 @font-face {
 	font-family: 'Poppins';
-	src: url('./assets/fonts/Poppins-Bold.ttf');
+	src: url('../assets/fonts/Poppins-Bold.ttf');
 	font-weight: 700;
 }
 
 @font-face {
 	font-family: 'Poppins';
-	src: url('./assets/fonts/Poppins-ExtraBoldItalic.ttf');
+	src: url('../assets/fonts/Poppins-ExtraBoldItalic.ttf');
 	font-weight: 800;
 }
 
@@ -51,10 +54,18 @@ main {
 	display: block;
 	padding: 10px 14px;
 	border-radius: 5px;
-	border: 1px solid hsl(0, 0%, 86%);
+	border: 1px solid var(--gray);
 	font-weight: 700;
 	font-size: clamp(1.3rem, 5vw, 1.6rem);
 	width: 100%;
+}
+.age-form-input span:first-child {
+	font-size: 13px;
+	margin-bottom: 6px;
+}
+.age-form-input input:focus {
+	outline: none;
+	border: 1px solid var(--purple);
 }
 
 /* SUBMIT ============= */
@@ -67,12 +78,12 @@ main {
 }
 .age-submit img {
 	padding: 1.2rem;
-	background: hsl(259, 100%, 65%);
+	background: var(--purple);
 	border-radius: 100%;
 	cursor: pointer;
 	transition: 0.3s;
 	border: none;
-	outline: 2px solid hsl(259, 100%, 65%);
+	outline: 2px solid var(--purple);
 	outline-offset: -2px;
 }
 .submit {
@@ -85,7 +96,7 @@ main {
 .submit::after {
 	content: '';
 	width: 100%;
-	background: hsl(0, 0%, 86%);
+	background: var(--gray);
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -97,21 +108,21 @@ main {
 	scale: 0.95;
 }
 .age-submit img:hover {
-	background: hsl(259, 100%, 60%);
+	background: black;
+	outline: 2px solid black;
 	outline-offset: 3px;
 	scale: 1.05;
 }
 .age-submit img:active {
-	background: hsl(258, 100%, 60%);
 	scale: 0.95;
 }
 
 /* ERROR ========== */
 .input--error {
-	color: hsl(0, 100%, 67%);
+	color: var(--red);
 }
 .input--error input {
-	border: 1px solid hsl(0, 100%, 67%);
+	border: 1px solid var(--red);
 	position: relative;
 	z-index: 10;
 }
@@ -131,19 +142,18 @@ main {
 
 /* RESULT ========== */
 .age-result {
-	font-size: clamp(2.7rem, 7vw, 4rem);
+	font-size: clamp(2.2rem, 7vw, 4rem);
 	font-weight: 800;
 	letter-spacing: 6px;
 }
 .age-form-input span {
-	font-size: 13px;
-	margin-bottom: 6px;
+	font-size: 11px;
 	display: block;
 }
 
 /* UTILS ========= */
 .purple_text {
-	color: hsl(259, 100%, 65%);
+	color: var(--purple);
 }
 .hidden {
 	display: none;
@@ -222,5 +232,25 @@ main {
 	.age-form-input span {
 		margin-bottom: 10px;
 		font-size: 14px;
+	}
+}
+
+/* remove spin buttons */
+input[type='number']::-webkit-inner-spin-button {
+	display: none;
+}
+input[type='number'] {
+	appearance: none;
+	-moz-appearance: textfield;
+	-webkit-appearance: textfield;
+}
+
+/* REDUCE MOTION ========= */
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
 	}
 }
